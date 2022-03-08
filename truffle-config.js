@@ -1,13 +1,15 @@
 const HDWalletProvider = require("truffle-hdwallet-provider");
 
-const MNEMONIC = process.env.MNEMONIC;
-const NODE_API_KEY = process.env.INFURA_KEY || process.env.ALCHEMY_KEY;
-const isInfura = !!process.env.INFURA_KEY;
+const fs = require('fs');
+const MNEMONIC  = fs.readFileSync(".secret").toString().trim();
+// const MNEMONIC = process.env.MNEMONIC;
+const NODE_API_KEY = "86a9f3ed254b4d0b96cd1d7b7078ba70" // process.env.INFURA_KEY || process.env.ALCHEMY_KEY;
+const isInfura = true
 
-const needsNodeAPI =
-  process.env.npm_config_argv &&
-  (process.env.npm_config_argv.includes("rinkeby") ||
-    process.env.npm_config_argv.includes("live"));
+const needsNodeAPI = "rinkeby"
+  // process.env.npm_config_argv &&
+  // (process.env.npm_config_argv.includes("rinkeby") ||
+  //   process.env.npm_config_argv.includes("live"));
 
 if ((!MNEMONIC || !NODE_API_KEY) && needsNodeAPI) {
   console.error("Please set a mnemonic and ALCHEMY_KEY or INFURA_KEY.");
